@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 
-public class PublisherWorkerIT {
+public class PublishConsumeIT {
 
     private static final String DOCUMENT_ID = UUID.randomUUID().toString();
     private static final String SS_URL = "http://localhost:8010";
@@ -42,7 +42,7 @@ public class PublisherWorkerIT {
 
         assertTrue(docEncrypted.length()>2);
 
-        String document= consumer.consumeDocument(DOCUMENT_ID, docEncrypted);
+        String document= consumer.decryptDocument(DOCUMENT_ID, docEncrypted);
 
         assertEquals(CONTENT_URL, document);
     }

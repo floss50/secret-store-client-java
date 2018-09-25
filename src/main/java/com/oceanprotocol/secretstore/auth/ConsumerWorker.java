@@ -63,7 +63,7 @@ public class ConsumerWorker {
      * @return Document content decrypted
      * @throws IOException
      */
-    public String consumeDocument(String documentId, String encryptedDocument) throws IOException {
+    public String decryptDocument(String documentId, String encryptedDocument) throws IOException {
 
         String document;
         String signedDocKey;

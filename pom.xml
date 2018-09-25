@@ -22,6 +22,7 @@
 		<log4j.version>2.11.1</log4j.version>
 		<junit.version>4.12</junit.version>
 		<typesafe-config.version>1.3.3</typesafe-config.version>
+        <packageclould.name>oceanprotocol/secret-store-client</packageclould.name>
 	</properties>
 
 	<dependencies>
@@ -159,8 +160,29 @@
                 </configuration>
             </plugin>
         </plugins>
+		<!-- https://blog.travis-ci.com/2017-03-30-deploy-maven-travis-ci-packagecloud/ -->
+		<extensions>
+			<extension>
+				<groupId>io.packagecloud.maven.wagon</groupId>
+				<artifactId>maven-packagecloud-wagon</artifactId>
+				<version>0.0.6</version>
+			</extension>
+		</extensions>
 	</build>
 
-
+	<distributionManagement>
+		<repository>
+			<id>packagecloud-travis</id>
+			<url>
+				packagecloud+https://packagecloud.io/${packageclould.name}
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>packagecloud-travis</id>
+			<url>
+				packagecloud+https://packagecloud.io/${packageclould.name}
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
