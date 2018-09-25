@@ -6,7 +6,7 @@ Parity Secret Store Java Client
 > 🐳 Secret Store client Library (Java)
 > [oceanprotocol.com](https://oceanprotocol.com)
 
-[![Travis (.com)](https://img.shields.io/travis/com/oceanprotocol/secret-store-client.svg)](https://travis-ci.com/oceanprotocol/secret-store-client)
+[![Travis (.com)](https://img.shields.io/travis/com/oceanprotocol/secret-store-client-java.svg)](https://travis-ci.com/oceanprotocol/secret-store-client-java)
 
 
 ---
