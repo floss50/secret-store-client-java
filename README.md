@@ -6,6 +6,8 @@ Parity Secret Store Java Client
 > 🐳 Secret Store client Library (Java)
 > [oceanprotocol.com](https://oceanprotocol.com)
 
+[![Travis (.com)](https://img.shields.io/travis/com/oceanprotocol/secret-store-client.svg)](https://travis-ci.com/oceanprotocol/secret-store-client)
+
 
 ---
 
@@ -15,6 +17,9 @@ Parity Secret Store Java Client
       * [Table of Contents](#table-of-contents)
       * [Features](#features)
       * [Technical Details](#technical-details)
+      * [Pre-requisites](#pre-requisites)
+      * [API](#api)
+         * [Installing the library](#installing-the-library)
          * [Publishing Documents](#publishing-documents)
          * [Consuming Documents](#consuming-documents)
       * [Links](#links)
@@ -49,6 +54,31 @@ The Parity Secret Store is core technology that enables:
   - any subset of less than t+1 parties could not restore the private portion of the key;
 * distributed key storage - private key shares are stored separately by every party and are never exposed neither to another parties, nor to external entities;
 * threshold retrieval according to blockchain permissions - all operations that are requiring private key, require at least t+1 parties to agree on ‘Permissioning contract’ state.
+
+## Pre-requisites
+
+If you want to run this locally you need the following:
+
+* A URL to a Secret Store node (you can run it locally too)
+* A URL to an instance of the Parity EVM client (you should run it locally)
+* Consumer and Publisher ethereum accounts
+* JVM >= 8
+
+## API
+
+### Installing the library
+
+Typically in Maven you could add the dependency:
+
+```xml
+<dependency>
+  <groupId>com.oceanprotocol.secretstore</groupId>
+  <artifactId>client</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
+
+You can find more information about how to download/integrate this library in the [Secret Store Client Packagecloud page](https://packagecloud.io/oceanprotocol/secret-store-client)
 
 
 ### Publishing Documents

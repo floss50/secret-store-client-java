@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.oceanprotocol.secretstore</groupId>
-	<artifactId>client</artifactId>
+	<artifactId>secret-store-client</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
