@@ -1,96 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.oceanprotocol.secretstore</groupId>
-	<artifactId>client</artifactId>
-	<version>0.0.1</version>
-	<packaging>jar</packaging>
+    <groupId>com.oceanprotocol.secretstore</groupId>
+    <artifactId>client</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
 
-	<name>Secret Store Java Client</name>
-	<description>Parity secret store java client</description>
+    <name>Secret Store Java Client</name>
+    <description>Parity secret store java client</description>
+    <url>http://github.com/oceanprotocol/secret-store-client-java</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <final-name>secret-store-client</final-name>
-
-		<web3j.version>3.5.0</web3j.version>
-		<jackson.version>2.8.6</jackson.version>
-		<log4j.version>2.11.1</log4j.version>
-		<junit.version>4.12</junit.version>
-		<typesafe-config.version>1.3.3</typesafe-config.version>
+        <web3j.version>3.5.0</web3j.version>
+        <jackson.version>2.8.6</jackson.version>
+        <log4j.version>2.11.1</log4j.version>
+        <junit.version>4.12</junit.version>
+        <typesafe-config.version>1.3.3</typesafe-config.version>
         <packageclould.name>oceanprotocol/secret-store-client</packageclould.name>
-	</properties>
+    </properties>
 
-	<dependencies>
+    <developers>
+        <developer>
+            <name>Dev@OceanProtocol</name>
+            <email>devops@oceanprotocol.com</email>
+            <organization>Ocean Protocol</organization>
+            <organizationUrl>http://www.oceanprotocol.com</organizationUrl>
+        </developer>
+    </developers>
 
-		<!-- Web3j -->
-		<dependency>
-			<groupId>org.web3j</groupId>
-			<artifactId>core</artifactId>
-			<version>${web3j.version}</version>
+    <scm>
+        <connection>scm:git:git://github.com/oceanprotocol/secret-store-client-java.git</connection>
+        <developerConnection>scm:git:ssh://oceanprotocol/secret-store-client-java.git</developerConnection>
+        <url>http://github.com/oceanprotocol/secret-store-client-java/tree/master</url>
+    </scm>
+
+    <dependencies>
+        <!-- Web3j -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>${web3j.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.web3j</groupId>
-			<artifactId>parity</artifactId>
-			<version>${web3j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.web3j</groupId>
-			<artifactId>utils</artifactId>
-			<version>${web3j.version}</version>
-		</dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>parity</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>utils</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
 
-		<!-- Jackson - JSON -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
+        <!-- Jackson - JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180813</version>
         </dependency>
 
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<!-- HTTP Client -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <!-- HTTP Client -->
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
         </dependency>
 
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
 
-		<!-- Logging -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -109,13 +133,13 @@
             <version>${log4j.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.11</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.11</version>
+        </dependency>
 
-        <!-- TEST Dependencies-->
+        <!-- TEST Dependencies -->
         <!-- Junit -->
         <dependency>
             <groupId>junit</groupId>
@@ -125,68 +149,90 @@
         </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
-	<build>
-        <finalName>${final-name}-${project.version}</finalName>
-		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-            <!-- Maven integration-test running using mvn verify -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.0</version>
-                <configuration>
-                    <skipITs>true</skipITs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
+    <profiles>
+        <!-- Activate using the release property: mvn clean install -Prelease -->
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- To release to Maven central -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverid>ossrh</serverid>
+                            <nexusurl>https://oss.sonatype.org/</nexusurl>
+                            <autoreleaseafterclose>true</autoreleaseafterclose>
+                        </configuration>
+                    </plugin>
+                    <!-- To generate javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.10.4</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 
-                </executions>
-            </plugin>
-        </plugins>
-		<!-- https://blog.travis-ci.com/2017-03-30-deploy-maven-travis-ci-packagecloud/ -->
-		<extensions>
-			<extension>
-				<groupId>io.packagecloud.maven.wagon</groupId>
-				<artifactId>maven-packagecloud-wagon</artifactId>
-				<version>0.0.6</version>
-			</extension>
-		</extensions>
-	</build>
+                    <!-- To sign the artifacts -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-	<distributionManagement>
-		<repository>
-			<id>packagecloud-travis</id>
-			<url>
-				packagecloud+https://packagecloud.io/${packageclould.name}
-			</url>
-		</repository>
-		<snapshotRepository>
-			<id>packagecloud-travis</id>
-			<url>
-				packagecloud+https://packagecloud.io/${packageclould.name}
-			</url>
-		</snapshotRepository>
-	</distributionManagement>
+
+
+    <distributionManagement>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
