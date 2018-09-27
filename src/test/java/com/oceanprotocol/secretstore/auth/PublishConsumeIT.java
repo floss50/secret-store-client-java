@@ -46,4 +46,19 @@ public class PublishConsumeIT {
 
         assertEquals(CONTENT_URL, document);
     }
+
+    @Test(expected = IOException.class)
+    public void publishConsumeHighThreshold() throws IOException {
+
+        String docId= UUID.randomUUID().toString();
+        String docEncrypted= publisher.publishDocument(docId, CONTENT_URL, 100);
+
+        assertTrue(docEncrypted.length()>2);
+
+        String document= consumer.decryptDocument(DOCUMENT_ID, docEncrypted);
+
+        assertEquals(CONTENT_URL, document);
+    }
+
+
 }

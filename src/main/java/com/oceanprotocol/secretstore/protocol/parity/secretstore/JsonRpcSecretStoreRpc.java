@@ -13,20 +13,35 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * JSON-RPC 2.0 factory implementation for Parity.
+ * JSON-RPC 2.0 factory implementation for Parity. It wraps the secretstore api requests to the Parity EVM
  */
-
-
 public class JsonRpcSecretStoreRpc extends JsonRpc2_0Admin {
 
+    /**
+     * Constructor
+     * @param web3jService Web3jService instance
+     */
     public JsonRpcSecretStoreRpc(Web3jService web3jService) {
         super(web3jService);
     }
 
+    /**
+     * Constructor
+     * @param web3jService Web3jService instance
+     * @param pollingInterval polling interval to query the evm
+     * @param scheduledExecutorService ScheduledExecutorService
+     */
     public JsonRpcSecretStoreRpc(Web3jService web3jService, long pollingInterval, ScheduledExecutorService scheduledExecutorService) {
         super(web3jService, pollingInterval, scheduledExecutorService);
     }
 
+    /**
+     * Invoke the secretstore_signRawHash method
+     * @param accountId ethereum account id
+     * @param password password
+     * @param docKeyId document key
+     * @return signed hash
+     */
     public Request<?, ParitySecretStoreSignRawHash> paritySecretStoreSignRawHash(
             String accountId, String password, String docKeyId) {
 
@@ -37,6 +52,13 @@ public class JsonRpcSecretStoreRpc extends JsonRpc2_0Admin {
                 ParitySecretStoreSignRawHash.class);
     }
 
+    /**
+     * Invoke the secretstore_generateDocumentKey method and generate the document key
+     * @param accountId ethereum account id
+     * @param password password
+     * @param docKeyId document key id
+     * @return document key
+     */
     public Request<?, ParitySecretStoreGenerateDocumentKey> paritySecretStoreGenerateDocumentKey(
             String accountId, String password, String docKeyId) {
 
@@ -48,22 +70,40 @@ public class JsonRpcSecretStoreRpc extends JsonRpc2_0Admin {
     }
 
 
+    /**
+     * Invoke the secretstore_encrypt method to encrypt a document
+     * @param accountId ethereum account id
+     * @param password password
+     * @param encryptedKey encrypted key
+     * @param document document to encrypt
+     * @return encrypted document
+     */
     public Request<?, ParitySecretStoreGenerateDocumentEncrypted> paritySecretStoreDocumentEncrypt(
-            String accountId, String password, String encryptedKey, String url) {
+            String accountId, String password, String encryptedKey, String document) {
 
         return new Request<>(
                 "secretstore_encrypt",
-                Arrays.asList(accountId, password, encryptedKey, url),
+                Arrays.asList(accountId, password, encryptedKey, document),
                 web3jService,
                 ParitySecretStoreGenerateDocumentEncrypted.class);
     }
 
+    /**
+     * Invoke the secretstore_shadowDecrypt to decrypt the document
+     * @param accountId ethereum account id
+     * @param password account password
+     * @param decryptedSecret decrypted secret
+     * @param commonPoint common point
+     * @param decryptShadows decrypted shadows
+     * @param encryptedDocument encrypted documents
+     * @return decrypted document
+     */
     public Request<?, ParitySecretStoreShadowDecrypt> paritySecretStoreDocumentDecrypt(
-            String accountId, String password, String descryptedSecret, String commonPoint, List<String> descryptShadows, String encryptedDocument) {
+            String accountId, String password, String decryptedSecret, String commonPoint, List<String> decryptShadows, String encryptedDocument) {
 
         return new Request<>(
                 "secretstore_shadowDecrypt",
-                Arrays.asList(accountId, password, descryptedSecret, commonPoint, descryptShadows, encryptedDocument),
+                Arrays.asList(accountId, password, decryptedSecret, commonPoint, decryptShadows, encryptedDocument),
                 web3jService,
                 ParitySecretStoreShadowDecrypt.class);
     }
