@@ -22,7 +22,7 @@ public class PublisherWorker {
      */
     protected static final Logger log = LogManager.getLogger(PublisherWorker.class);
 
-    private final String DEFAULT_THRESHOLD= "1";
+    private final int DEFAULT_THRESHOLD= 1;
 
     /**
      * Secret Store interface instance
@@ -73,7 +73,7 @@ public class PublisherWorker {
      * @return Document content encrypted
      * @throws IOException The document was not published correctly
      */
-    public String publishDocument(String documentId, String document, String threshold) throws IOException {
+    public String publishDocument(String documentId, String document, int threshold) throws IOException {
 
         String signedDocKey;
         String docEncrypted;
@@ -89,7 +89,7 @@ public class PublisherWorker {
 
             log.debug("SecretStore: Generating Secret Store Server key");
             String ssServerKey= SecretStoreHelper.removeQuotes(
-                    ssDto.generateServerKey(documentKeyId, signedDocKey, threshold));
+                    ssDto.generateServerKey(documentKeyId, signedDocKey, String.valueOf(threshold)));
 
             log.debug("EVM: Generate the Document key from the Secret Store key");
             EncryptionKeysDocument docKeys = evmDto.generateDocumentKeyFromKey(ssServerKey);
