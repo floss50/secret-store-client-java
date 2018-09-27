@@ -25,9 +25,9 @@ public abstract class HttpHelper {
 
     /**
      * Send a HTTP POST request and return the body
-     * @param url
-     * @return
-     * @throws HttpException
+     * @param url url to call
+     * @return returned http body
+     * @throws HttpException Http error
      */
     public static final String httpClientPostBody(String url) throws HttpException {
         return httpClientPost(url, new ArrayList<>()).getBody();
@@ -35,10 +35,10 @@ public abstract class HttpHelper {
 
     /**
      * Send a HTTP POST request with parameters and return the body
-     * @param url
+     * @param url url to call
      * @param list parameters
-     * @return
-     * @throws HttpException
+     * @return returned http body
+     * @throws HttpException Http error
      */
     public static final String httpClientPostBody(String url, ArrayList<NameValuePair> list) throws HttpException {
         return httpClientPost(url, list).getBody();
@@ -46,9 +46,9 @@ public abstract class HttpHelper {
 
     /**
      * Send a HTTP POST request and return the HttpResponse object
-     * @param url
-     * @return
-     * @throws HttpException
+     * @param url url to call
+     * @return HttpResponse returned
+     * @throws HttpException Http error
      */
     public static final HttpResponse httpClientPost(String url) throws HttpException {
         return httpClientPost(url, new ArrayList<>());
@@ -56,10 +56,10 @@ public abstract class HttpHelper {
 
     /**
      * Send a HTTP POST request with parameters and return the HttpResponse object
-     * @param url
-     * @param list
-     * @return
-     * @throws HttpException
+     * @param url url to call
+     * @param list parameters
+     * @return HttpResponse returned
+     * @throws HttpException Http error
      */
     public static final HttpResponse httpClientPost(String url, ArrayList<NameValuePair> list) throws HttpException {
 
@@ -93,9 +93,9 @@ public abstract class HttpHelper {
 
     /**
      * Send a HTTP GET request and return the HttpResponse object
-     * @param url
-     * @return
-     * @throws HttpException
+     * @param url url to call
+     * @return HttpResponse returned
+     * @throws HttpException Http error
      */
     public static final HttpResponse httpClientGet(String url) throws HttpException {
 

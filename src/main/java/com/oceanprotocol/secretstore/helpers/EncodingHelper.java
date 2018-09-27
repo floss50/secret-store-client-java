@@ -10,9 +10,9 @@ public abstract class EncodingHelper {
 
     /**
      * Encodes a String in Hex
-     * @param input
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param input string to encode
+     * @return Hex string
+     * @throws UnsupportedEncodingException Error encoding to Hex
      */
     public static String encodeToHex(String input) throws UnsupportedEncodingException {
         return DatatypeConverter.printHexBinary(input.getBytes("UTF-8"));
@@ -20,9 +20,9 @@ public abstract class EncodingHelper {
 
     /**
      * Decodes a Hex String
-     * @param input
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param input string to decode
+     * @return Decoded string
+     * @throws UnsupportedEncodingException Error decoding from Hex
      */
     public static String decodeHex(String input) throws UnsupportedEncodingException {
         return new String(
@@ -33,8 +33,8 @@ public abstract class EncodingHelper {
 
     /**
      * If exists, removes the "0x" prefix of a String
-     * @param address
-     * @return
+     * @param address string including ethereum address
+     * @return String without the 0x prefix
      */
     public static String removeEthereumAddressPrefix(String address)    {
         if (address.startsWith("0x"))

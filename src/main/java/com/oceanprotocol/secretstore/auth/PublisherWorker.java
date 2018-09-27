@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 /**
- * Class useful to abstract all the EVM & Secret Store requests allowing to a user to encrypt a document
+ * Class useful to abstract all the EVM and Secret Store requests allowing to a user to encrypt a document
  */
 public class PublisherWorker {
 
@@ -21,6 +21,8 @@ public class PublisherWorker {
      * Logger
      */
     protected static final Logger log = LogManager.getLogger(PublisherWorker.class);
+
+    private final String DEFAULT_THRESHOLD= "1";
 
     /**
      * Secret Store interface instance
@@ -33,7 +35,7 @@ public class PublisherWorker {
     private EvmDto evmDto;
 
     /**
-     * Publisher constructor. Initialize the Secret Store & Parity EVM connections using the urls and connection parameters
+     * Publisher constructor. Initialize the Secret Store and Parity EVM connections using the urls and connection parameters
      * @param ssUrl Secret Store URL (i.e: http://localhost:8010/)
      * @param evmUrl Parity EVM URL (i.e: http://localhost:8545/)
      * @param address Publisher Ethereum address (i.e: 0xb3e6499f2b07817ee8e35c8e63cb200df2055d91)
@@ -56,17 +58,22 @@ public class PublisherWorker {
         this.evmDto= evmDto;
     }
 
+    public String publishDocument(String documentId, String document) throws IOException {
+        return publishDocument(documentId, document, DEFAULT_THRESHOLD);
+    }
+
     /**
-     * Given a documentId and a document, the method negotiate with the Parity EVM & Secret Store to
+     * Given a documentId and a document, the method negotiate with the Parity EVM and Secret Store to
      * encrypt the document and store the decryption keys in the Secret Store.
      * If in the Secret Store the acl_contract attribute is specified, an on-chain access control validation
      * will be performed in the consumption.
      * @param documentId Identifier of the document
      * @param document Document content
+     * @param threshold minimum number of secret store nodes necessary
      * @return Document content encrypted
-     * @throws IOException
+     * @throws IOException The document was not published correctly
      */
-    public String publishDocument(String documentId, String document) throws IOException {
+    public String publishDocument(String documentId, String document, String threshold) throws IOException {
 
         String signedDocKey;
         String docEncrypted;
@@ -82,7 +89,7 @@ public class PublisherWorker {
 
             log.debug("SecretStore: Generating Secret Store Server key");
             String ssServerKey= SecretStoreHelper.removeQuotes(
-                    ssDto.generateServerKey(documentKeyId, signedDocKey));
+                    ssDto.generateServerKey(documentKeyId, signedDocKey, threshold));
 
             log.debug("EVM: Generate the Document key from the Secret Store key");
             EncryptionKeysDocument docKeys = evmDto.generateDocumentKeyFromKey(ssServerKey);

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 /**
- * Class useful to abstract all the EVM & Secret Store requests allowing to a user to decrypt a document
+ * Class useful to abstract all the EVM and Secret Store requests allowing to a user to decrypt a document
  */
 public class ConsumerWorker {
 
@@ -30,7 +30,7 @@ public class ConsumerWorker {
     private EvmDto evmDto;
 
     /**
-     * Consumer constructor. Initialize the Secret Store & Parity EVM connections using the urls and connection parameters
+     * Consumer constructor. Initialize the Secret Store and Parity EVM connections using the urls and connection parameters
      * @param ssUrl Secret Store URL (i.e: http://localhost:8010/)
      * @param evmUrl Parity EVM URL (i.e: http://localhost:8545/)
      * @param address Consumer Ethereum address (i.e: 0xb3e6499f2b07817ee8e35c8e63cb200df2055d91)
@@ -54,14 +54,14 @@ public class ConsumerWorker {
     }
 
     /**
-     * Given a documentId and an encrypted document, the method negotiate with the Parity EVM & Secret Store to
+     * Given a documentId and an encrypted document, the method negotiate with the Parity EVM and Secret Store to
      * decrypt the document.
      * If in the Secret Store the acl_contract attribute is specified, an on-chain access control validation
      * will be performed.
      * @param documentId Identifier of the document
      * @param encryptedDocument Encrypted document
      * @return Document content decrypted
-     * @throws IOException
+     * @throws IOException The document was not decrypted
      */
     public String decryptDocument(String documentId, String encryptedDocument) throws IOException {
 
