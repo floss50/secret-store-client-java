@@ -18,7 +18,6 @@ public class EvmDto {
 
     protected static final Logger log = LogManager.getLogger(EvmDto.class);
 
-    private static EvmDto dto= null;
     private String evmUrl;
     private Web3j web3;
     private JsonRpcSecretStoreRpc ssRpc;
@@ -33,10 +32,7 @@ public class EvmDto {
      * @return EvmDto
      */
     public static EvmDto builder(String url, String address, String password) {
-        if (dto == null)    {
-            dto= new EvmDto(url, address, password);
-        }
-        return dto;
+        return new EvmDto(url, address, password);
     }
 
     private EvmDto(String url, String address, String password)    {
@@ -121,5 +117,10 @@ public class EvmDto {
                 .getDecryptedDocument()
         );
     }
+
+    public String getAddress() {
+        return address;
+    }
+
 
 }

@@ -53,6 +53,10 @@ public class ConsumerWorker {
         this.evmDto= evmDto;
     }
 
+    public String getSignedDocumentKeyId(String documentKeyId) throws IOException {
+        return evmDto.signDocumentKeyId(documentKeyId);
+    }
+
     /**
      * Given a documentId and an encrypted document, the method negotiate with the Parity EVM and Secret Store to
      * decrypt the document.
@@ -69,10 +73,11 @@ public class ConsumerWorker {
         String signedDocKey;
 
         try {
+            log.debug("Consuming Document using address:" + evmDto.getAddress());
 
-            log.debug("Generating Document Key: " + documentId);
+            log.debug("Generating documentKeyId from documentId: " + documentId);
             String documentKeyId= SecretStoreHelper.generateDocumentKeyId(documentId);
-            log.debug("Encrypted Document Key: " + documentKeyId);
+            log.debug("documentKeyId: " + documentKeyId);
 
             log.debug("EVM: Signing Document Key");
             signedDocKey = evmDto.signDocumentKeyId(documentKeyId);

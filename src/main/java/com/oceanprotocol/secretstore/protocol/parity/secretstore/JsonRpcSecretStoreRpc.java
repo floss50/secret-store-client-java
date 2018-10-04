@@ -56,15 +56,15 @@ public class JsonRpcSecretStoreRpc extends JsonRpc2_0Admin {
      * Invoke the secretstore_generateDocumentKey method and generate the document key
      * @param accountId ethereum account id
      * @param password password
-     * @param docKeyId document key id
+     * @param serverKey server key
      * @return document key
      */
     public Request<?, ParitySecretStoreGenerateDocumentKey> paritySecretStoreGenerateDocumentKey(
-            String accountId, String password, String docKeyId) {
+            String accountId, String password, String serverKey) {
 
         return new Request<>(
                 "secretstore_generateDocumentKey",
-                Arrays.asList(accountId, password, docKeyId),
+                Arrays.asList(accountId, password, serverKey),
                 web3jService,
                 ParitySecretStoreGenerateDocumentKey.class);
     }

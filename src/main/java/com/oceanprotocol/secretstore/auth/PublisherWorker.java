@@ -79,12 +79,13 @@ public class PublisherWorker {
         String docEncrypted;
 
         try {
+            log.debug("Publishing Document using address:" + evmDto.getAddress());
 
-            log.debug("Generating Document Key: " + documentId);
+            log.debug("Generating documentKeyId from documentId: " + documentId);
             String documentKeyId= SecretStoreHelper.generateDocumentKeyId(documentId);
-            log.debug("Encrypted Document Key: " + documentKeyId);
+            log.debug("documentKeyId: " + documentKeyId);
 
-            log.debug("EVM: Signing Document Key");
+            log.debug("EVM: Signing documentKeyId");
             signedDocKey = evmDto.signDocumentKeyId(documentKeyId);
 
             log.debug("SecretStore: Generating Secret Store Server key");

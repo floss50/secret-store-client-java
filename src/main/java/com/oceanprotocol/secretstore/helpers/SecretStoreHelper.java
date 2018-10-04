@@ -7,11 +7,11 @@ public final class SecretStoreHelper {
 
     /**
      * Given an input string generates a Document Key ID (SHA256 Hex)
-     * @param doc seed for generating the document key id
+     * @param docId seed for generating the document key id
      * @return document key id
      */
-    public static String generateDocumentKeyId(String doc)   {
-        return EncryptionHelper.encryptSHA256(doc);
+    public static String generateDocumentKeyId(String docId)   {
+        return EncryptionHelper.encryptSHA256(docId);
     }
 
     /**
