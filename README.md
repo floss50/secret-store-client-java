@@ -13,6 +13,7 @@ Parity Secret Store Java Client
 
 ## Table of Contents
 
+
    * [secret-store-client-java](#secret-store-client-java)
       * [Table of Contents](#table-of-contents)
       * [Features](#features)
@@ -21,9 +22,11 @@ Parity Secret Store Java Client
       * [API](#api)
          * [Installing the library](#installing-the-library)
          * [Publishing Documents](#publishing-documents)
-         * [Consuming Documents](#consuming-documents)
+         * [Decrypting Documents](#decrypting-documents)
+      * [On-chain Permissions](#on-chain-permissions)
       * [Links](#links)
       * [License](#license)
+
 
 
 ---
@@ -103,7 +106,7 @@ String docEncrypted= publisher.publishDocument("my-document-id", contentOfTheDoc
 ```
 
 
-### Consuming Documents
+### Decrypting Documents
 
 You can initialize the ConsumerWorker object passing the URL's of the Secret Store and Parity EVM client,
 the ethereum address of the user consuming documents and the password of that ethereum account.
@@ -129,10 +132,18 @@ String document= consumer.decryptDocument("my-document-id", docEncrypted);
 You can find a complete integration test in the PublishConsumeIT file.
 
 
+## On-chain Permissions
+
+Secret Store incorporate the mechanisms to query a Smart Contract to authorize a Consumer to decrypt a secret.
+This library was tested in a Secret Store setup using this feature.
+You can find more details in the [PublishConsumeIT.java](https://github.com/oceanprotocol/secret-store-client-java/blob/develop/src/test/java/com/oceanprotocol/secretstore/auth/PublishConsumeIT.java) integration test or in the [Proof of Concept about the Secret Store](https://github.com/oceanprotocol/poc-secret-store).
+
+
 ## Links
 
 * [Parity Secret Store](https://wiki.parity.io/Secret-Store)
 * [Parity Secret Store Tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview.html)
+* [Proof of Concept about the Secret Store](https://github.com/oceanprotocol/poc-secret-store)
 
 You can find further information about the Secret Store in the following links:
 

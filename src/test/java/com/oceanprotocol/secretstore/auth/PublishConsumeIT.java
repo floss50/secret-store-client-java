@@ -48,7 +48,7 @@ public class PublishConsumeIT {
     private static final String BOB_PASSWORD= "1234";
 
     private static final String CHARLIE_ADDRESS= "0x0d5a52051f75c8e106585541fe2ce05413bd5e18";
-    private static final String CHARLIE_PASSWORD= "1234";
+    private static final String CHARLIE_PASSWORD= "";
 
     private static final String CONTENT_URL = "http://catplanet.org/wp-content/uploads/2014/02/I-can-xplain.jpg";
     private static PublisherWorker alicePublisher;
