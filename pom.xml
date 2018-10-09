@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.oceanprotocol.secretstore</groupId>
-    <artifactId>client</artifactId>
-    <version>0.0.1</version>
+    <groupId>com.oceanprotocol</groupId>
+    <artifactId>secret-store-client</artifactId>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>Secret Store Java Client</name>
     <description>Parity secret store java client</description>
-    <url>http://github.com/oceanprotocol/secret-store-client-java</url>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <final-name>secret-store-client</final-name>
         <web3j.version>3.5.0</web3j.version>
         <jackson.version>2.8.6</jackson.version>
@@ -40,14 +29,14 @@
             <name>Dev@OceanProtocol</name>
             <email>devops@oceanprotocol.com</email>
             <organization>Ocean Protocol</organization>
-            <organizationUrl>http://www.oceanprotocol.com</organizationUrl>
+            <organizationUrl>https://www.oceanprotocol.com</organizationUrl>
         </developer>
     </developers>
 
     <scm>
         <connection>scm:git:git://github.com/oceanprotocol/secret-store-client-java.git</connection>
         <developerConnection>scm:git:ssh://oceanprotocol/secret-store-client-java.git</developerConnection>
-        <url>http://github.com/oceanprotocol/secret-store-client-java/tree/master</url>
+        <url>https://github.com/oceanprotocol/secret-store-client-java/tree/master</url>
     </scm>
 
     <dependencies>

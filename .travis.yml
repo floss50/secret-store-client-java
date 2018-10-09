@@ -11,23 +11,33 @@ before_install:
     - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
     - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install:
-    mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+    mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
-before_deploy:
-- mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
-  -v '\[')
+stages:
+  - release
+  - name: central
+    if: branch = master AND tag = true
 
-deploy:
-  provider: releases
-  api_key:
-    secure: xk/ychvOfaWkOKjYm5H9zvDY2cyZi6q9PyONfbNTDNaMMLYBDIw5tm57c2DRD6dPvow56MYjApG5ilmj1qY5DrLxbXo5Q4tlrhp+3dUVL7MzzjnHT2U/UOkMhZZzQjRMSH5pLsXni+bbp7dBi08DFM79tIY82Lm2m+Cz2W4Djja1nowAuWftE1cVEl/gghTKecQnbX1dUclaIMYfUXb55CKUyVcReN5XW5cpF3cJ0Rbgj24gyJRva+QeLookoB4/RbkmzEfO3ZQIgFEPGhNb6siizUL8O6OmvQ9/W12/y2812c5wwmBw6iYV6hKjnv2Lt3wHcPyd/IA5+sk77YRWrjyVwuuKmDreTm70lq/s/9ihNWlMePPvE2MdhPZJ0Dv9rS0wnrwqhxPu21PPazyftfBmas9fyNdBOP8KvA9qAP000y4SnwuCe8MH+7Qx6CsEagtUxhV4M/b5P9Gj9uNa29rHIHyGcH/HfJMtwJVw7iF+UylIiSAmwrtWNdIldWNHf+406yXohg3OuQG+HyR2mldCxj8CDIGkJZ+vMTFppJs7AXxAx2+IC5j9RknhyYmy4gcRka67hQ5Rkx/Fda0zQ0PELJ71pv6p/LBDRbGc4WluxxiOZWRkq9zpWZ0+1gmOO2cyJYQvOVXRwmKwsaL1i3uvOatPa1/8LzqfunuR9JQ=
-  file:  
-        - client/target/client-$project_version.jar
-  on:
-    repo: oceanprotocol/secret-store-client-java
-  name: $project_version
+jobs:
+  include:
+    ## Github release
+    - stage: release
+      script: skip
+      before_deploy:
+      - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+      - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+        -v '\[')
+      deploy:
+        provider: releases
+        api_key:
+          secure: $GITHUB_API_KEY
+        file:  
+              - client/target/secret-store-client-$project_version.jar
+        on:
+          tags: true
+          repo: oceanprotocol/secret-store-client-java
+        name: $project_version
 
-## Build and release to maven central
-script:
-    mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+    ## Build and release to maven central
+    - stage: central
+      script: mvn clean deploy --settings .maven.xml -B -U -Prelease
