@@ -75,9 +75,9 @@ Typically in Maven you could add the dependency:
 
 ```xml
 <dependency>
-  <groupId>com.oceanprotocol.secretstore</groupId>
-  <artifactId>client</artifactId>
-  <version>0.0.1</version>
+  <groupId>com.oceanprotocol</groupId>
+  <artifactId>secretstore-client</artifactId>
+  <version>0.0.2</version>
 </dependency>
 ```
 
