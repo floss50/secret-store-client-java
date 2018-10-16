@@ -12,16 +12,16 @@
     <description>Parity secret store java client</description>
 
     <properties>
+        <final-name>secret-store-client</final-name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <final-name>secret-store-client</final-name>
-        <web3j.version>3.5.0</web3j.version>
-        <jackson.version>2.8.6</jackson.version>
+
+        <web3j.version>3.6.0</web3j.version>
+        <jackson.version>2.9.7</jackson.version>
         <log4j.version>2.11.1</log4j.version>
         <junit.version>4.12</junit.version>
         <typesafe-config.version>1.3.3</typesafe-config.version>
-        <packageclould.name>oceanprotocol/secret-store-client</packageclould.name>
     </properties>
 
     <developers>
@@ -222,8 +222,38 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+
+                            <minimizeJar>true</minimizeJar>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
 
 
 
