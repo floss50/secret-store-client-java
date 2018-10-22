@@ -112,7 +112,7 @@ public class PublishConsumeIT {
 
         log.debug("ALICE PUBLISHING -------------");
 
-        String docEncrypted= alicePublisher.publishDocument(docId, CONTENT_URL);
+        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL);
         assertTrue(docEncrypted.length()>2);
 
 
@@ -136,7 +136,7 @@ public class PublishConsumeIT {
         log.debug("\tdocKeyId: " + docKeyId);
 
 
-        String docEncrypted= alicePublisher.publishDocument(docId, CONTENT_URL, 100);
+        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL, 100);
 
         assertTrue(docEncrypted.length()>2);
 
@@ -158,7 +158,7 @@ public class PublishConsumeIT {
         log.debug("\tdocKeyId: " + docKeyId);
 
 
-        String docEncrypted= alicePublisher.publishDocument(docId, CONTENT_URL);
+        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL);
 
         assertTrue(docEncrypted.length()>2);
 

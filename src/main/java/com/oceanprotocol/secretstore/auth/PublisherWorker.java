@@ -58,8 +58,8 @@ public class PublisherWorker {
         this.evmDto= evmDto;
     }
 
-    public String publishDocument(String documentId, String document) throws IOException {
-        return publishDocument(documentId, document, DEFAULT_THRESHOLD);
+    public String encryptDocument(String documentId, String document) throws IOException {
+        return encryptDocument(documentId, document, DEFAULT_THRESHOLD);
     }
 
     /**
@@ -73,13 +73,13 @@ public class PublisherWorker {
      * @return Document content encrypted
      * @throws IOException The document was not published correctly
      */
-    public String publishDocument(String documentId, String document, int threshold) throws IOException {
+    public String encryptDocument(String documentId, String document, int threshold) throws IOException {
 
         String signedDocKey;
         String docEncrypted;
 
         try {
-            log.debug("Publishing Document using address:" + evmDto.getAddress());
+            log.debug("Encrypt Document using address:" + evmDto.getAddress());
 
             log.debug("Generating documentKeyId from documentId: " + documentId);
             String documentKeyId= SecretStoreHelper.generateDocumentKeyId(documentId);

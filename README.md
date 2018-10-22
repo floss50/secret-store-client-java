@@ -84,10 +84,10 @@ Typically in Maven you could add the dependency:
 You can find more information about how to download/integrate this library in the [Secret Store Client Packagecloud page](https://packagecloud.io/oceanprotocol/secret-store-client)
 
 
-### Publishing Documents
+### Encrypting Documents
 
-Publish or Consume documents require interaction with the Parity blockchain client (for security reasons it's better to have this running locally) and one of the nodes of the Secret Store cluster.
-You can initialize the PublisherWorker object passing the URL's to both components, the ethereum address of the user publishing documents and the password of that ethereum account.
+Encrypt or decrypt documents require interaction with the Parity blockchain client (for security reasons it's better to have this running locally) and one of the nodes of the Secret Store cluster.
+You can initialize the PublisherWorker object passing the URL's to both components, the ethereum address of the user encrypting documents and the password of that ethereum account.
 
 ```java
 // Initializing the Publisher
@@ -102,7 +102,7 @@ publisher= new PublisherWorker(
 Publishing a document only require an API call:
 
 ```java
-String docEncrypted= publisher.publishDocument("my-document-id", contentOfTheDocument);
+String docEncrypted= publisher.encryptDocument("my-document-id", contentOfTheDocument);
 ```
 
 
