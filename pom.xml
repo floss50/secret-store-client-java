@@ -10,6 +10,7 @@
 
     <name>Secret Store Java Client</name>
     <description>Parity secret store java client</description>
+    <url>https://github.com/oceanprotocol/secret-store-client-java</url>
 
     <properties>
         <final-name>secret-store-client</final-name>
