@@ -1,14 +1,45 @@
 sudo: false
 language: java
+jdk:
+ - oraclejdk8
 services:
 - docker
 cache:
   directories:
   - "$HOME/.cache"
 
-deploy:
-  provider: script
-  script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
-  skip_cleanup: true
-  on:
-    tags: true
+## export GPG details
+before_install:
+    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+install:
+    mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+
+stages:
+  - release
+  - name: central
+    if: branch = master AND tag = true
+
+jobs:
+  include:
+    ## Github release
+    - stage: release
+      script: skip
+      before_deploy:
+      - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+      - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+        -v '\[')
+      deploy:
+        provider: releases
+        api_key:
+          secure: $GITHUB_API_KEY
+        file:  
+              - client/target/secret-store-client-$project_version.jar
+        on:
+          tags: true
+          repo: oceanprotocol/secret-store-client-java
+        name: $project_version
+
+    ## Build and release to maven central
+    - stage: central
+      script: mvn clean deploy --settings .maven.xml -B -U -Prelease

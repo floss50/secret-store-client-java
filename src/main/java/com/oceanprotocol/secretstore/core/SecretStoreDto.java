@@ -12,7 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-
+/**
+ * Secret Store Data Transfer Object (DTO)
+ */
 public class SecretStoreDto {
 
     protected static final Logger log = LogManager.getLogger(SecretStoreDto.class);
@@ -23,6 +25,11 @@ public class SecretStoreDto {
     private String ssUrl;
     private final String THRESHOLD = "1";
 
+    /**
+     * Initialize the SecretStoreDto given the Secret Store url
+     * @param url secret store url
+     * @return SecretStoreDto
+     */
     public static SecretStoreDto builder(String url) {
         if (dto == null)    {
             dto= new SecretStoreDto(url);
@@ -30,20 +37,35 @@ public class SecretStoreDto {
         return dto;
     }
 
+
     private SecretStoreDto(String url)    {
         log.debug("Initializing Secret Store Dto: " + url);
         this.ssUrl= url;
     }
 
-    /**
-     * PUBLISHING
-     */
 
+    /**
+     * Given a document key and a signed document key generates and return a server key
+     * @param documentKey document key
+     * @param signedDocKey signed document key
+     * @return server key
+     * @throws HttpException Invalid Http request
+     * @throws IOException Unable to generate Server Key
+     */
     public String generateServerKey(String documentKey, String signedDocKey) throws HttpException, IOException {
         return generateServerKey(documentKey, signedDocKey, THRESHOLD);
     }
 
-    public String generateServerKey(String documentKey, String signedDocKey, String threshold) throws HttpException, IOException {
+    /**
+     * Given a document key and a signed document key generates and return a server key.
+     * It requires a threshold
+     * @param documentKey document key
+     * @param signedDocKey signed document key
+     * @param threshold threshold of number of secret store instances
+     * @return server key
+     * @throws IOException
+     */
+    public String generateServerKey(String documentKey, String signedDocKey, String threshold) throws IOException {
         String url= ssUrl + "/shadow/" +
                 documentKey + "/" +
                 EncodingHelper.removeEthereumAddressPrefix(signedDocKey) + "/" +
@@ -55,6 +77,16 @@ public class SecretStoreDto {
         return result;
     }
 
+    /**
+     * Stores a document key in the Secret Store network
+     * @param documentKey document key
+     * @param signedDocKey signed document key
+     * @param commonPoint common point
+     * @param encryptedPoint encrypted point
+     * @return A HttpResponse of the request
+     * @throws HttpException Http request problem
+     * @throws IOException Unable to store Document query
+     */
     public HttpResponse storeDocumentKey(String documentKey, String signedDocKey, String commonPoint, String encryptedPoint) throws HttpException, IOException {
         String url= ssUrl + "/shadow/" +
                 documentKey + "/" +
@@ -70,10 +102,14 @@ public class SecretStoreDto {
         return result;
     }
 
-    /**
-     * CONSUMING
-     */
 
+    /**
+     * Retrieve document keys from Secret Store
+     * @param documentKey document key
+     * @param signedDocKey signed document key
+     * @return DecryptionKeys object
+     * @throws IOException Unable to retrieve document keys
+     */
     public DecriptionKeys retrieveDocumentKeys(String documentKey, String signedDocKey) throws IOException {
         String url= ssUrl + "/shadow/" +
                 documentKey + "/" +
