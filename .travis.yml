@@ -23,22 +23,22 @@ stages:
 jobs:
   include:
     ## Github release
-    - stage: release
-      script: skip
-      before_deploy:
-      - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-      - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
-        -v '\[')
-      deploy:
-        provider: releases
-        api_key:
-          secure: $GITHUB_API_KEY
-        file:  
-              - client/target/secret-store-client-$project_version.jar
-        on:
-          tags: true
-          repo: oceanprotocol/secret-store-client-java
-        name: $project_version
+    # - stage: release
+    #   script: skip
+    #   before_deploy:
+    #   - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+    #   - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+    #     -v '\[')
+    #   deploy:
+    #     provider: releases
+    #     api_key:
+    #       secure: $GITHUB_API_KEY
+    #     file:
+    #           - client/target/secret-store-client-$project_version.jar
+    #     on:
+    #       tags: true
+    #       repo: oceanprotocol/secret-store-client-java
+    #     name: $project_version
 
     ## Build and release to maven central
     - stage: central
