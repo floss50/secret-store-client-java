@@ -12,6 +12,14 @@
     <description>Parity secret store java client</description>
     <url>https://github.com/oceanprotocol/secret-store-client-java</url>
 
+    <licenses>
+      <license>
+        <name>The Apache Software License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
+
     <properties>
         <final-name>secret-store-client</final-name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
