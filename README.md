@@ -77,7 +77,7 @@ Typically in Maven you could add the dependency:
 <dependency>
   <groupId>com.oceanprotocol</groupId>
   <artifactId>secretstore-client</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 
@@ -138,6 +138,8 @@ Secret Store incorporate the mechanisms to query a Smart Contract to authorize a
 This library was tested in a Secret Store setup using this feature.
 You can find more details in the [PublishConsumeIT.java](https://github.com/oceanprotocol/secret-store-client-java/blob/develop/src/test/java/com/oceanprotocol/secretstore/auth/PublishConsumeIT.java) integration test or in the [Proof of Concept about the Secret Store](https://github.com/oceanprotocol/poc-secret-store).
 
+In order to test the integration with last version of Keeper Service Agreements, you can integrate the SLA [Smart Contracts of the keeper](https://github.com/oceanprotocol/keeper-contracts).
+
 For testing purposes, this library includes the web3j bindings of a testing Smart Contract implementing the authorization phase integrated with the Secret Store.
 This Smart Contract ([AccessServiceAgreement.sol](https://github.com/oceanprotocol/poc-secret-store/blob/master/contracts/AccessServiceAgreement.sol)) provided as reference is **TOTALLY INSECURE!**.
 It doesn't include the validations to ensure that only the publisher of an asset is allowed to give or revoke grants.
@@ -147,6 +149,7 @@ To build the java bindings we use the following command:
 ```bash
 $ web3j truffle generate --javaTypes ../poc-secret-store/build/contracts/AccessServiceAgreement.json -o src/main/java -p com.oceanprotocol.secretstore.contracts
 ```
+
 
 
 ## Links
