@@ -5,7 +5,7 @@
 
     <groupId>com.oceanprotocol</groupId>
     <artifactId>secret-store-client</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <name>Secret Store Java Client</name>
@@ -17,7 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <web3j.version>3.6.0</web3j.version>
+        <web3j.version>4.0.1</web3j.version>
         <jackson.version>2.9.7</jackson.version>
         <log4j.version>2.11.1</log4j.version>
         <junit.version>4.12</junit.version>
@@ -234,6 +234,14 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.web3j:*</exclude>
+                                    <exclude>org.apache.logging.log4j:*</exclude>
+                                    <exclude>com.fasterxml.jackson.core:*</exclude>
+                                    <exclude>javax.xml.bind:jaxb-api</exclude>
+                                </excludes>
+                            </artifactSet>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -251,6 +259,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
