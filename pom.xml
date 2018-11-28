@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.oceanprotocol</groupId>
     <artifactId>secret-store-client</artifactId>
     <version>0.0.6</version>
     <packaging>jar</packaging>
-
     <name>Secret Store Java Client</name>
     <description>Parity secret store java client</description>
-
     <properties>
         <final-name>secret-store-client</final-name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-
         <web3j.version>4.0.1</web3j.version>
         <jackson.version>2.9.7</jackson.version>
         <log4j.version>2.11.1</log4j.version>
         <junit.version>4.12</junit.version>
         <typesafe-config.version>1.3.3</typesafe-config.version>
     </properties>
-
     <developers>
         <developer>
             <name>Dev@OceanProtocol</name>
@@ -32,13 +26,11 @@
             <organizationUrl>https://www.oceanprotocol.com</organizationUrl>
         </developer>
     </developers>
-
     <scm>
         <connection>scm:git:git://github.com/oceanprotocol/secret-store-client-java.git</connection>
         <developerConnection>scm:git:ssh://oceanprotocol/secret-store-client-java.git</developerConnection>
         <url>https://github.com/oceanprotocol/secret-store-client-java/tree/master</url>
     </scm>
-
     <dependencies>
         <!-- Web3j -->
         <dependency>
@@ -62,7 +54,6 @@
             <artifactId>utils</artifactId>
             <version>${web3j.version}</version>
         </dependency>
-
         <!-- Jackson - JSON -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -84,7 +75,6 @@
             <artifactId>json</artifactId>
             <version>20180813</version>
         </dependency>
-
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -96,38 +86,32 @@
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
         </dependency>
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j18-impl</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
         </dependency>
-
         <!-- TEST Dependencies -->
         <!-- Junit -->
         <dependency>
@@ -136,10 +120,7 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
-
     <profiles>
         <!-- Activate using the release property: mvn clean install -Prelease -->
         <profile>
@@ -158,9 +139,9 @@
                         <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverid>ossrh</serverid>
-                            <nexusurl>https://oss.sonatype.org/</nexusurl>
-                            <autoreleaseafterclose>true</autoreleaseafterclose>
+                            <serverId>oss.sonatype.org</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                     <!-- To generate javadoc -->
@@ -190,7 +171,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <!-- To sign the artifacts -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -210,7 +190,6 @@
             </build>
         </profile>
     </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -222,7 +201,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -252,14 +230,11 @@
                                     </excludes>
                                 </filter>
                             </filters>
-
                             <minimizeJar>true</minimizeJar>
                         </configuration>
-
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -268,13 +243,8 @@
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
-
-
-
     <distributionManagement>
         <repository>
             <id>oss.sonatype.org</id>
@@ -285,5 +255,4 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>
