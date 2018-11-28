@@ -11,8 +11,9 @@ cache:
 before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+install:
+- mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 - export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')
-install: mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 deploy:
 - provider: script
   skip_cleanup: true
