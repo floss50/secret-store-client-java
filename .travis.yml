@@ -13,9 +13,8 @@ before_install:
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install: mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 stages:
+- release
 - name: central
-  if: branch = master AND tag = true
-- name: release
   if: branch = master AND tag = true
 jobs:
   include:
