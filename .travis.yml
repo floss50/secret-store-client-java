@@ -13,6 +13,7 @@ before_install:
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install:
 - mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+- mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]'
 - export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')
 deploy:
 - provider: script
