@@ -12,30 +12,22 @@ before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install: mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
-stages:
-- release
-- name: central
-  if: branch = master AND tag = true
-jobs:
-  include:
-  # Build and release to maven central
-  - stage: central
-    script: mvn clean deploy --settings .maven.xml -B -U -Prelease
-  # Github release
-  - stage: release
-    script: skip
-    before_deploy:
-    - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-    - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
-    deploy:
-      skip_cleanup: true
-      provider: releases
-      api_key:
-        secure: G51DpTZATKyAmTDe3ErIMkaTvHeLOck6MWgvk+jf6MtXDizKL6feYRoS1HdK9q8xbdkB8sHlhvhS4uHNoI/b5vJe9oOoi2iLgHliKyxHj3Iqp77G66/AcLE0hcZZZdxuVeKHvnGkLlNMKg4jJoP73lnMZ5TChv6vJaqLaLZI/Zeq9qBENROz23bv+rlU0J99p/db74PJnJhxKWu2u2fIEIN6uY/2LWBL+Ch4TBVpjHi3AlMjCuHmGi1IWNBVPffuoBZMG3o8vqlIKeF8kibJRXxKbjxyRlcgkvaHLDa0ZZWbxVAR1Ld/n0Y5IkJx6w8X2WCBU0PJy4liqIaw4ZhbR8rhJ8tkac3Ji0BTP2ZrtJLxGgx2niwkaHCviIBRmc8ijUh8Pi5KFgC5+6WWUeBQpNYQyCg2nablnPowf3hjz+PIqtDHSb4S9J48dyn1FwJYii351CEm9LcXUuntHhTZvMRYCPmyJb0TZ2h0xR3Z7MqJzHDlq4/u9NoHmsN0HKGStl5aCkhdlmglStb+HuvDdS7IzHfNxWWiOKP2BgDsxqDaBERW6CGJlAZ1Htk/Ub3rvdfHA7Xb/3KI05F/b+E99xMffKMDu8RDDXM9CdtwNNgnxuTNP5V5FwGE3mmrDNLouWASY6myctB1cvF2n9Ja1eiRbD9n+qv0z1uPeb0AwVw=
-      file:
-      - client/target/secret-store-client-$project_version.jar
-      on:
-        tags: true
-        repo: oceanprotocol/secret-store-client-java
-      name: "$project_version"
-
+deploy:
+- provider: script
+  script: mvn clean deploy --settings .maven.xml -B -U -Prelease
+  on:
+    tags: true
+    all_branches: true
+- provider: release
+  skip_cleanup: true
+  before_deploy:
+  - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+  - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
+  api_key:
+    secure: G51DpTZATKyAmTDe3ErIMkaTvHeLOck6MWgvk+jf6MtXDizKL6feYRoS1HdK9q8xbdkB8sHlhvhS4uHNoI/b5vJe9oOoi2iLgHliKyxHj3Iqp77G66/AcLE0hcZZZdxuVeKHvnGkLlNMKg4jJoP73lnMZ5TChv6vJaqLaLZI/Zeq9qBENROz23bv+rlU0J99p/db74PJnJhxKWu2u2fIEIN6uY/2LWBL+Ch4TBVpjHi3AlMjCuHmGi1IWNBVPffuoBZMG3o8vqlIKeF8kibJRXxKbjxyRlcgkvaHLDa0ZZWbxVAR1Ld/n0Y5IkJx6w8X2WCBU0PJy4liqIaw4ZhbR8rhJ8tkac3Ji0BTP2ZrtJLxGgx2niwkaHCviIBRmc8ijUh8Pi5KFgC5+6WWUeBQpNYQyCg2nablnPowf3hjz+PIqtDHSb4S9J48dyn1FwJYii351CEm9LcXUuntHhTZvMRYCPmyJb0TZ2h0xR3Z7MqJzHDlq4/u9NoHmsN0HKGStl5aCkhdlmglStb+HuvDdS7IzHfNxWWiOKP2BgDsxqDaBERW6CGJlAZ1Htk/Ub3rvdfHA7Xb/3KI05F/b+E99xMffKMDu8RDDXM9CdtwNNgnxuTNP5V5FwGE3mmrDNLouWASY6myctB1cvF2n9Ja1eiRbD9n+qv0z1uPeb0AwVw=
+  file:
+  - target/secret-store-client-$project_version.jar
+  name: "$project_version"
+  on:
+    tags: true
+    all_branches: true
