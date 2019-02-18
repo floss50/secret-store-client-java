@@ -62,22 +62,18 @@ public class ConsumerWorker {
      * decrypt the document.
      * If in the Secret Store the acl_contract attribute is specified, an on-chain access control validation
      * will be performed.
-     * @param documentId Identifier of the document
+     * @param documentKeyId Identifier of the document
      * @param encryptedDocument Encrypted document
      * @return Document content decrypted
      * @throws IOException The document was not decrypted
      */
-    public String decryptDocument(String documentId, String encryptedDocument) throws IOException {
+    public String decryptDocument(String documentKeyId, String encryptedDocument) throws IOException {
 
         String document;
         String signedDocKey;
 
         try {
             log.debug("Consuming Document using address:" + evmDto.getAddress());
-
-            log.debug("Generating documentKeyId from documentId: " + documentId);
-            String documentKeyId= SecretStoreHelper.generateDocumentKeyId(documentId);
-            log.debug("documentKeyId: " + documentKeyId);
 
             log.debug("EVM: Signing Document Key");
             signedDocKey = evmDto.signDocumentKeyId(documentKeyId);

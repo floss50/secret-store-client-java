@@ -112,13 +112,13 @@ public class PublishConsumeIT {
 
         log.debug("ALICE PUBLISHING -------------");
 
-        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL);
+        String docEncrypted= alicePublisher.encryptDocument(docKeyId, CONTENT_URL);
         assertTrue(docEncrypted.length()>2);
 
 
         log.debug("BOB CONSUMING -------------");
 
-        String document= bobConsumer.decryptDocument(docId, docEncrypted);
+        String document= bobConsumer.decryptDocument(docKeyId, docEncrypted);
 
         log.debug("Document decrypted: " + document);
 
@@ -136,11 +136,11 @@ public class PublishConsumeIT {
         log.debug("\tdocKeyId: " + docKeyId);
 
 
-        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL, 100);
+        String docEncrypted= alicePublisher.encryptDocument(docKeyId, CONTENT_URL, 100);
 
         assertTrue(docEncrypted.length()>2);
 
-        String document= bobConsumer.decryptDocument(docId, docEncrypted);
+        String document= bobConsumer.decryptDocument(docKeyId, docEncrypted);
 
         log.debug("Document decrypted: " + document);
 
@@ -158,11 +158,11 @@ public class PublishConsumeIT {
         log.debug("\tdocKeyId: " + docKeyId);
 
 
-        String docEncrypted= alicePublisher.encryptDocument(docId, CONTENT_URL);
+        String docEncrypted= alicePublisher.encryptDocument(docKeyId, CONTENT_URL);
 
         assertTrue(docEncrypted.length()>2);
 
-        String document= charlieConsumer.decryptDocument(docId, docEncrypted);
+        String document= charlieConsumer.decryptDocument(docKeyId, docEncrypted);
 
         log.debug("Document decrypted: " + document);
 
