@@ -24,7 +24,7 @@ public class AccessServiceAgreementIT {
 
     protected static final Logger log = LogManager.getLogger(AccessServiceAgreementIT.class);
 
-    private static AccessServiceAgreement serviceAgreement;
+//    private static AccessConditions serviceAgreement;
     private static Web3j web3= null;
     private static TransactionManager txManager;
     private static Credentials credentials;
@@ -41,6 +41,7 @@ public class AccessServiceAgreementIT {
     private static final BigInteger GAS_PRICE= BigInteger.valueOf(1500);
     private static final BigInteger GAS_LIMIT= BigInteger.valueOf(250000);
 
+/*
     @BeforeClass
     public static void setUp() throws Exception {
 
@@ -48,7 +49,7 @@ public class AccessServiceAgreementIT {
 
         web3 = Web3j.build(new HttpService(VM_URL));
         txManager= new RawTransactionManager(web3, credentials);
-        serviceAgreement= AccessServiceAgreement.load(CONTRACT_ADDRESS, web3, txManager ,GAS_PRICE, GAS_LIMIT);
+        serviceAgreement= com.oceanprotocol.keeper.contracts.AccessConditions.load(CONTRACT_ADDRESS, web3, txManager ,GAS_PRICE, GAS_LIMIT);
     }
 
     @AfterClass
@@ -88,5 +89,6 @@ public class AccessServiceAgreementIT {
 
     }
 
+*/
 
 }

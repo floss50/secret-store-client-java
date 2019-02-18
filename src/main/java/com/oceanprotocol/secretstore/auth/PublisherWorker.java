@@ -22,7 +22,7 @@ public class PublisherWorker {
      */
     protected static final Logger log = LogManager.getLogger(PublisherWorker.class);
 
-    private final int DEFAULT_THRESHOLD= 1;
+    private final int DEFAULT_THRESHOLD= 0;
 
     /**
      * Secret Store interface instance
