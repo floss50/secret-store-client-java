@@ -7,14 +7,14 @@ services:
 cache:
   directories:
   - "$HOME/.cache"
-# export GPG details
 before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install:
 - mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 - mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]'
-- export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')
+- export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version
+  | grep -e '^[^\[]')
 deploy:
 - provider: script
   skip_cleanup: true
@@ -25,11 +25,9 @@ deploy:
 - provider: releases
   skip_cleanup: true
   api_key:
-    secure: "EtMbS+/TfySNtYfUMGBlBFaL0eyEH5QNRYV6Z2Wi4oj5yfrxgyQnkPh7n6bePvQe47n6b53gzsJAkMwP7P4YKLkiFxYv1K/Zm1uJBDyWQdytFtttUUzvnVwHGD6aOnnU5Z4t3va5HGRMXMiWIRVfgtSre/vZY12HD1T3PVipa9ZUVaxaJ7ZJrkuBuyXJUwr4rEiMgy5H2NCTlWw0Iy8/IE3DkYt8mnojo5WjP8LrdjtA7ZDwb9pvHTbI13ASek3xwO/Paq1uOQ/aA/b8XIE2zeTZ1l+s8zR38+hScyY6yIyR2ljbbzOZivaJACMLtr3VB75Z4sS86T2xBjsix1Byw4GErDvJPRlCFQLpW/CViK+zdpfpB+mDmZh0Af8/PV+ukVOpW/K94Cjbze5LUA6vgM23hpdJQIyspLWEeAyodudAsAaC3L+GLwmL+AUljlD+RB0kAbc0rRGwig63MpsVe3zOWZlmDc97t7XzJ7d1Hn2zgTz0ueAMR2DltAej1WOBTU9Ah2+jx4lIVPgiB/XYl3oQremxB2/Qws79gdHB7Eb/HB/yFKaM6JIR60QEuZ6K/8IFyuGkmUxPVu7eaQwCU9gS+LgyTb9R86EQaT17lVzmr627/fxFL4VeDhBamzS18mMAaGsQrmP1okkwgAH6cefLmdveElIrptF258iimzw="
-  file:
-  - target/secret-store-client-$secretstore_project_version.jar
-  name: "$secretstore_project_version"
+    secure: kCjVvKfZ49O452+S8JOt248MyjVFD6tSUIs3+9BPWGEzT8yeIyt8940MEE0R7zLq86fQy4fKeGbm2hG928T3bBecuCVsRl+ZTYZkCQk0hthGmL0+IbZPxUm/+ExRTDF5LBwidyBif7YUL2jehwJmrFXxACyQFdQKrYiNKCRnknk69xc/wwzaQpb6YadoXSFhIxhS5tYSni0/2Ku0R5SGScyBDGuxjKyBB0WUGbBxaxSKOX5gcz+87FNekFz+vZdrrCF4pvdgO0d2EFhkMJAdm1WywnI0mhYDSD668EYhCL0n++B8N8T5tCo3RIdPe5JhK4rNG59kV0O/i/S+A+87+AE/VNDoYjVFJMVfL6zXZO3z9lS5arScujJZzAyyR3noF7VE1WHNaTo6uoirGtsDW7BcqIAs4itTT/4YSLSKZEIx2ZtNAvhwfJhPDBYpPbesx2I7Y9ChNzPAcSXuMf4OUZIiflHgVhS0NUmZrT/ysr7qxhv7IwETMwBzCl2c2VSBb5Uy3cuwRErMumw5sv3o4h0d3p9ejFNHUcyEk72YX+pNooxGhTO7yvosnVBevj/QblWzSp+RMqJWvK7lLJjFsg/vyCHFmGGodJoRNH7px2GEZ1hNPFfC89dMb3zRQl/IfCol+oOho0NE3thbN2qkUHt7jigeVGjdK7EJqTwn46U=
+  file: target/secret-store-client-$secretstore_project_version.jar
   on:
+    repo: oceanprotocol/secret-store-client-java
     tags: true
     all_branches: true
-
