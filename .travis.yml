@@ -11,7 +11,10 @@ cache:
 before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-install: mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+install:
+- mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+- mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]'
+- export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')
 deploy:
 - provider: script
   skip_cleanup: true
@@ -19,15 +22,13 @@ deploy:
   on:
     tags: true
     all_branches: true
-- provider: release
+- provider: releases
   skip_cleanup: true
-  before_deploy: "export project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')"
   api_key:
-    secure: G51DpTZATKyAmTDe3ErIMkaTvHeLOck6MWgvk+jf6MtXDizKL6feYRoS1HdK9q8xbdkB8sHlhvhS4uHNoI/b5vJe9oOoi2iLgHliKyxHj3Iqp77G66/AcLE0hcZZZdxuVeKHvnGkLlNMKg4jJoP73lnMZ5TChv6vJaqLaLZI/Zeq9qBENROz23bv+rlU0J99p/db74PJnJhxKWu2u2fIEIN6uY/2LWBL+Ch4TBVpjHi3AlMjCuHmGi1IWNBVPffuoBZMG3o8vqlIKeF8kibJRXxKbjxyRlcgkvaHLDa0ZZWbxVAR1Ld/n0Y5IkJx6w8X2WCBU0PJy4liqIaw4ZhbR8rhJ8tkac3Ji0BTP2ZrtJLxGgx2niwkaHCviIBRmc8ijUh8Pi5KFgC5+6WWUeBQpNYQyCg2nablnPowf3hjz+PIqtDHSb4S9J48dyn1FwJYii351CEm9LcXUuntHhTZvMRYCPmyJb0TZ2h0xR3Z7MqJzHDlq4/u9NoHmsN0HKGStl5aCkhdlmglStb+HuvDdS7IzHfNxWWiOKP2BgDsxqDaBERW6CGJlAZ1Htk/Ub3rvdfHA7Xb/3KI05F/b+E99xMffKMDu8RDDXM9CdtwNNgnxuTNP5V5FwGE3mmrDNLouWASY6myctB1cvF2n9Ja1eiRbD9n+qv0z1uPeb0AwVw=
+    secure: e7vsfl5QXfMgvvZn5eLkS1KGqt5Im39kX6r3iWQekpGCH06ntdx1VyDyknTcdyl0FqiUpFsEUuZVCY/85NEeOHDRScsMSDhbpX7VY9JEfCgvnrlGtac6wgTpvOgKajz2b+L7h23eSKx3TWVKi8NjSvQguinIjeY1Wz3TYx5Q+qXMrgEK8zmijoTtm56Skx0FEJUomTjiLGwQYDdh2P2Y6CY9j2M/WTmP7RQ+NHTDCqtkG1la5/Ndw6yZnzJWW7l3H1xCwyLyU+33PmugT6O3WirIDUwNOppqfby+N4zQxBWISLI4EOxim8Lu9mb1qXjQOmPQz9+/UI1S4rJofbLzX2ohw9k4vR6oTvdiuO2szDXYgx/Lfdyah+bvcFLfDHnNuQMuI+LfiOiNPZESKEZdO/yQoua6fAJUAGejstpi20zvmz3mGLzaMhOzID4CMOexcbafeZF7nGieY+LVyvPmU/ZXT5nxmBInmvPxg8sbGojmJccWkZlbdyh8ejvPetIh0OQSHyL/JnBpNrS8GNJfMXAuclgW+i52KJiqE8VC7RZHzgxcd/0SMqzVWOar4XThM9mhTe34H/6Ww371giQooJ8RkKF33PPL+8BhUw8ZNS/+D8BVhvwwSfGEvoii6mZu2VzS1XY2fgWBunYMYdW4Y7b4soZD7OUK3TW3VhTqVJ4=
   file:
-  - target/secret-store-client-$project_version.jar
-  name: "$project_version"
+  - target/secret-store-client-$secretstore_project_version.jar
+  name: "$secretstore_project_version"
   on:
     tags: true
     all_branches: true
-
