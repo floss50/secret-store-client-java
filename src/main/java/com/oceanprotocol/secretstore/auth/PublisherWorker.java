@@ -22,7 +22,7 @@ public class PublisherWorker {
      */
     protected static final Logger log = LogManager.getLogger(PublisherWorker.class);
 
-    private final int DEFAULT_THRESHOLD= 1;
+    private final int DEFAULT_THRESHOLD= 0;
 
     /**
      * Secret Store interface instance
@@ -58,32 +58,28 @@ public class PublisherWorker {
         this.evmDto= evmDto;
     }
 
-    public String encryptDocument(String documentId, String document) throws IOException {
-        return encryptDocument(documentId, document, DEFAULT_THRESHOLD);
+    public String encryptDocument(String documentKeyId, String document) throws IOException {
+        return encryptDocument(documentKeyId, document, DEFAULT_THRESHOLD);
     }
 
     /**
-     * Given a documentId and a document, the method negotiate with the Parity EVM and Secret Store to
+     * Given a documentKeyId and a document, the method negotiate with the Parity EVM and Secret Store to
      * encrypt the document and store the decryption keys in the Secret Store.
      * If in the Secret Store the acl_contract attribute is specified, an on-chain access control validation
      * will be performed in the consumption.
-     * @param documentId Identifier of the document
+     * @param documentKeyId Identifier of the document
      * @param document Document content
      * @param threshold minimum number of secret store nodes necessary
      * @return Document content encrypted
      * @throws IOException The document was not published correctly
      */
-    public String encryptDocument(String documentId, String document, int threshold) throws IOException {
+    public String encryptDocument(String documentKeyId, String document, int threshold) throws IOException {
 
         String signedDocKey;
         String docEncrypted;
 
         try {
             log.debug("Encrypt Document using address:" + evmDto.getAddress());
-
-            log.debug("Generating documentKeyId from documentId: " + documentId);
-            String documentKeyId= SecretStoreHelper.generateDocumentKeyId(documentId);
-            log.debug("documentKeyId: " + documentKeyId);
 
             log.debug("EVM: Signing documentKeyId");
             signedDocKey = evmDto.signDocumentKeyId(documentKeyId);

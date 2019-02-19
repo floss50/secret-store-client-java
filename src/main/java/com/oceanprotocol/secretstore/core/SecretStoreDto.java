@@ -23,7 +23,7 @@ public class SecretStoreDto {
     private JsonRpcSecretStoreRpc ssRpc= null;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private String ssUrl;
-    private final String THRESHOLD = "1";
+    private final String THRESHOLD = "0";
 
     /**
      * Initialize the SecretStoreDto given the Secret Store url
