@@ -1,45 +1,35 @@
 sudo: false
 language: java
 jdk:
- - oraclejdk8
+- oraclejdk8
 services:
 - docker
 cache:
   directories:
   - "$HOME/.cache"
-
-## export GPG details
+# export GPG details
 before_install:
-    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+- echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+- echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install:
-    mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+- mvn --settings .maven.xml install -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+- mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]'
+- export secretstore_project_version=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]')
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: mvn clean deploy --settings .maven.xml -B -U -Prelease
+  on:
+    tags: true
+    all_branches: true
+- provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: e7vsfl5QXfMgvvZn5eLkS1KGqt5Im39kX6r3iWQekpGCH06ntdx1VyDyknTcdyl0FqiUpFsEUuZVCY/85NEeOHDRScsMSDhbpX7VY9JEfCgvnrlGtac6wgTpvOgKajz2b+L7h23eSKx3TWVKi8NjSvQguinIjeY1Wz3TYx5Q+qXMrgEK8zmijoTtm56Skx0FEJUomTjiLGwQYDdh2P2Y6CY9j2M/WTmP7RQ+NHTDCqtkG1la5/Ndw6yZnzJWW7l3H1xCwyLyU+33PmugT6O3WirIDUwNOppqfby+N4zQxBWISLI4EOxim8Lu9mb1qXjQOmPQz9+/UI1S4rJofbLzX2ohw9k4vR6oTvdiuO2szDXYgx/Lfdyah+bvcFLfDHnNuQMuI+LfiOiNPZESKEZdO/yQoua6fAJUAGejstpi20zvmz3mGLzaMhOzID4CMOexcbafeZF7nGieY+LVyvPmU/ZXT5nxmBInmvPxg8sbGojmJccWkZlbdyh8ejvPetIh0OQSHyL/JnBpNrS8GNJfMXAuclgW+i52KJiqE8VC7RZHzgxcd/0SMqzVWOar4XThM9mhTe34H/6Ww371giQooJ8RkKF33PPL+8BhUw8ZNS/+D8BVhvwwSfGEvoii6mZu2VzS1XY2fgWBunYMYdW4Y7b4soZD7OUK3TW3VhTqVJ4=
+  file:
+  - target/secret-store-client-$secretstore_project_version.jar
+  name: "$secretstore_project_version"
+  on:
+    tags: true
+    all_branches: true
 
-stages:
-  - release
-  - name: central
-    if: branch = master AND tag = true
-
-jobs:
-  include:
-    ## Github release
-    # - stage: release
-    #   script: skip
-    #   before_deploy:
-    #   - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-    #   - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
-    #     -v '\[')
-    #   deploy:
-    #     provider: releases
-    #     api_key:
-    #       secure: $GITHUB_API_KEY
-    #     file:
-    #           - client/target/secret-store-client-$project_version.jar
-    #     on:
-    #       tags: true
-    #       repo: oceanprotocol/secret-store-client-java
-    #     name: $project_version
-
-    ## Build and release to maven central
-    - stage: central
-      script: mvn clean deploy --settings .maven.xml -B -U -Prelease
