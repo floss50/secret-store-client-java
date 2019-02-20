@@ -31,10 +31,7 @@ public class SecretStoreDto {
      * @return SecretStoreDto
      */
     public static SecretStoreDto builder(String url) {
-        if (dto == null)    {
-            dto= new SecretStoreDto(url);
-        }
-        return dto;
+        return new SecretStoreDto(url);
     }
 
 
